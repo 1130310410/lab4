@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>欢迎光临图书管理系统</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+   <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+<div class="container" style="padding-top:60px">
+<h1 style="top:30px;"> 欢迎光临图书管理系统 </h1> <br/>
+
+<a class="add" style="left:200px;"href="/addinterface/"> 添加图书 </a> 
+
+<form name="input" action="/search/" method="post">
+{% csrf_token %}
+<div class="form-group">
+<input type="text" name="search" style="width:150px;"/> <input type="submit" class="btn btn-primary btn-mini" value="搜索作者"/> 
+</div>
+
+</form>
+
+{% if add %}
+<p class="text-danger"> 书籍已添加完成 </p> <br/>
+{% endif %}
+{% if update %}
+<p class="text-danger"> 书籍信息已修改完成 </p> <br/>
+{% endif %}
+{% if delete %}
+<p class="text-danger"> 该书籍已经删除 </p> <br/>
+{% endif %}
+{% if already %}
+<p class="text-danger"> 该书籍已经存在 </p> <br/>
+{% endif %}
+
+{% if urls %}
+<table class="table">
+
+	<tr> 
+	<th> 书名 </th> <th> 作者 </th> <th> 操作 </th> 
+	</tr>
+	{% for x,y in urls.items %}
+	<tr>
+	<td> <a href={{y.0}}> {{x}} </a> </td> 
+	<td> {{y.1}} </td> 
+	<td> <a href={{y.2}}> 修改 </a> <a href={{y.3}}> 删除 </a> </td>
+	</tr> 
+	{% endfor %}
+
+</table>
+{% endif %}
+
+</body>
+</html>
